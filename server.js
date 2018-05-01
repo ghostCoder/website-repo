@@ -6,13 +6,15 @@ const express = require('express');
 var path = require("path");
 const app = express();
 
-express.static.mime.define({'application/javascript': ['js']});
+express.static.mime.define({ 'application/javascript': ['js'] });
 
-app.use( '/dist', express.static( __dirname + '/dist' ));
+var port = process.env.PORT || 8080;
+
+app.use('/dist', express.static(__dirname + '/dist'));
 
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-app.listen(8080, () => console.log('Listening on port 8080!'));
+app.listen(port, () => console.log('Listening on port ' + port + '!'));
