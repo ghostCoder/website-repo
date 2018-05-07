@@ -1,0 +1,6 @@
+{
+  "name": "zip-downloader-test",
+  "dependencies": {
+    "zip-downloader": "0.3.0"
+  }
+}

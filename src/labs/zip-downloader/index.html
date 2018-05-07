@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Naman's Lab</title>
+
+
+</head>
+<body>
+<div style="float: left;width: 50%;">
+    <div>
+        JSON of assets to be downloaded:
+    </div>
+    <div>
+    <textarea id="assets" style="width: 95%;height: 200px;margin-top: 4px;">
+        </textarea>
+    </div>
+    <div style="margin-top: 10px;">
+        <span>Download Status: </span>
+    <span id="status">
+        0%
+    </span>
+    </div>
+    <div style="margin-top: 10px;">
+        <button id="downloadBtn" class="btn" style="background-color: pink;
+    padding: 7px 10px;
+    font-size: 15px;">
+            Click to Download Assets
+        </button>
+    </div>
+
+</div>
+<div style="float: left;
+    width: 50%;
+    ">
+    <div>
+        Usage:
+    </div>
+<pre style="overflow: auto;
+    border: 1px solid;
+    padding: 10px;
+    margin-top: 4px;">
+import zipDownloader from 'zip-downloader';
+
+const downloadAssets = () => {
+  try {
+    const assetText = document.getElementById("assets").value,
+      statusEl = document.getElementById("status");
+
+    let assets = JSON.parse(assetText),
+      assetCount = assets.length,
+      options = {
+        downloadFileName: 'folder',
+        statusCallback: (count)=> {
+          statusEl.innerHTML = `${(count * 100) / assetCount}%`;
+        },
+        onComplete: (obj)=> {
+          statusEl.innerHTML = JSON.stringify(obj, null, 4);
+        },
+      };
+
+    zipDownloader(assets, options);
+  } catch (e) {
+    alert("Invalid JSON")
+  }
+
+};
+
+document.getElementById("downloadBtn").addEventListener("click", downloadAssets);
+
+</pre>
+</div>
+<script src="./dist/zip-downloader.js"></script>
+
+</body>
+</html>
+
